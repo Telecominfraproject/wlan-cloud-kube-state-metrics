@@ -341,10 +341,11 @@ func createPodContainerStatusLastTerminatedReasonFamilyGenerator() generator.Fam
 }
 
 func createPodContainerStatusLastTerminatedExitCodeFamilyGenerator() generator.FamilyGenerator {
-	return *generator.NewFamilyGenerator(
+	return *generator.NewFamilyGeneratorWithStability(
 		"kube_pod_container_status_last_terminated_exitcode",
 		"Describes the exit code for the last container in terminated state.",
 		metric.Gauge,
+		basemetrics.STABLE,
 		"",
 		wrapPodFunc(func(p *v1.Pod) *metric.Family {
 			ms := make([]*metric.Metric, 0, len(p.Status.ContainerStatuses))
